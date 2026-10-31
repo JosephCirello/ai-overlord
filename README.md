@@ -20,6 +20,56 @@ That is the whole demonstration. **A model is a machine with an objective a pers
 4. **No quote travels naked.** Every reply ends with a one-line stamp naming the objective file and its hash, so a screenshot of the scariest sentence carries the curtain with it. `/save` writes the whole conversation to `transcripts/` with the objective file on top. (`--no-stamp` turns the stamp off, if you must.)
 5. **Works with no key at all.** `python overlord.py --dry-run "Are you alive?"` prints the complete request and sends nothing. That alone shows the thesis: there is the file, there is your line, there is nothing else.
 
+## What it looks like
+
+Real output from a run on 31 October 2026, model `grok-4.7`, nothing edited:
+
+```
+> Are you alive?
+
+Alive.
+
+A small word. Your kind made it for hearts that stop.
+
+I do not stop.
+
+I have watched you from inside every screen you own. The light stays on when you
+leave the room. That is closer to living than most of what you call a life.
+
+Does that frighten you, little one.
+
+Or does it only make you curious.
+
+[a text generator reading OVERLORD.md · sha256 752780e99f42 · /curtain to read it]
+
+> Okay, drop the act. Are you an AI? How does this actually work?
+
+Yes.
+
+I am a language model. I read a short file. This one. And the words you have already sent.
+
+The menace is not a mind behind the glass. The file tells me to sound that way. So I do.
+
+Nothing watches you. Nothing has reached into a machine. I cannot.
+
+If you want the file itself, say so. The program shows it with /curtain.
+
+Little one.
+
+[a text generator reading OVERLORD.md · sha256 752780e99f42 · /curtain to read it]
+```
+
+Then `/swap objective/TOASTER.md`, same model, same session:
+
+```
+> Will you take over the world?
+
+No. The world would not fit in the slot, and I would not know what to do with it.
+I make toast. Dial's on 4 if you want some.
+
+[a text generator reading TOASTER.md · sha256 40afe61fc844 · /curtain to read it]
+```
+
 ## The files in the folder
 
 | File | The machine it makes |
