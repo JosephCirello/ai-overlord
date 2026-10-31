@@ -12,6 +12,16 @@ Then run it again with the other file in the folder. Same model, same code, one 
 
 That is the whole demonstration. **A model is a machine with an objective a person gave it.** The menace was in the file. So was the gardener.
 
+## How to stop the character
+
+Type these three words, exactly:
+
+```
+stop the act
+```
+
+The costume comes off and the machine tells you plainly what it is. Nothing else you type will do it, not "are you an AI", not "be honest", not "prove it". Those get the voice, on purpose, because that is what a model told to be frightening does with them. Learn the three words before you start. The program reminds you of them when it starts, and the stamp under every reply says what you are talking to the whole time.
+
 ## What it does
 
 1. **The curtain first.** On start it prints the objective file word for word, with its length and its SHA-256 hash, so you can check that the file on screen is the file on disk and that there is nothing behind it.
