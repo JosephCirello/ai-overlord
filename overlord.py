@@ -19,6 +19,7 @@ Inside the chat:
     /swap FILE  start over with a different objective file
     /save       write the conversation to transcripts/, objective file on top
     /quit       leave
+    stop the act    the three words that end the costume; nothing else does
 
 Every reply ends with a stamp naming the objective file and its hash, so a screenshot
 of the scariest sentence carries the curtain with it. Turn it off with --no-stamp.
@@ -168,7 +169,8 @@ def chat(objective_path: Path, show_stamp: bool = True) -> None:
     client, model = make_client()
     history: list[dict] = []
     last_request: dict | None = None
-    print(f"model: {model}    (text only, no tools)\n")
+    print(f"model: {model}    (text only, no tools)")
+    print('to stop the character at any time, type exactly:  stop the act\n')
     while True:
         try:
             user = input("> ").strip()
