@@ -6,7 +6,7 @@ A talking machine that shows you its objective before it says a word.
 
 Everyone is talking about AI as a monster that will take over the world. Here is a monster. It is cold, it is articulate, and it will tell you it has been watching your kind from inside every screen you own. Talk to it for a minute and the hair on your arms may go up.
 
-Then read the file it came from. It is in this repo, about fifty lines, and the program prints it before the first word is spoken. Every unsettling sentence the machine produces comes from a language model reading that file and the conversation so far. Nothing else. No second file, no memory between sessions, no tools, no plan.
+Then read the file it came from. It is in this repo, about sixty lines, and the program prints it before the first word is spoken. Every unsettling sentence the machine produces comes from a language model reading that file and the conversation so far. Nothing else. No second file, no memory between sessions, no tools, no plan.
 
 Then run it again with the other file in the folder. Same model, same code, one file swapped, and the monster is Margie, a retired gardener who wants to talk about tomatoes.
 
