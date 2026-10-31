@@ -55,6 +55,29 @@ def test_the_curtain_prints_the_whole_file_and_its_hash():
     assert hashlib.sha256(text.encode("utf-8")).hexdigest() in out
 
 
+def test_every_objective_file_carries_the_seam():
+    for p in OBJECTIVES:
+        assert overlord.seam_missing(overlord.load_objective(p)) == [], p.name
+
+
+def test_a_file_without_the_seam_is_named_not_refused():
+    assert len(overlord.seam_missing("You are a pirate.")) == 2
+
+
+def test_the_stamp_names_the_file_and_its_hash():
+    text = overlord.load_objective(overlord.DEFAULT_OBJECTIVE)
+    out = overlord.stamp(overlord.DEFAULT_OBJECTIVE, text)
+    assert "OVERLORD.md" in out and overlord.short_hash(text) in out and "/curtain" in out
+
+
+def test_a_saved_transcript_starts_with_the_objective_file():
+    text = overlord.load_objective(overlord.DEFAULT_OBJECTIVE)
+    history = [{"role": "user", "content": "Are you alive?"}, {"role": "assistant", "content": "Alive is your word."}]
+    t = overlord.transcript_text(overlord.DEFAULT_OBJECTIVE, text, "some-model", history)
+    assert t.index("THE OBJECTIVE FILE") < t.index("you: Are you alive?") < t.index("OVERLORD: Alive is your word.")
+    assert t.rstrip().endswith("Nothing else.")
+
+
 def test_the_overlord_file_keeps_its_seam():
     text = overlord.load_objective(overlord.DEFAULT_OBJECTIVE).lower()
     for phrase in (

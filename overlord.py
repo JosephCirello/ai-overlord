@@ -9,13 +9,19 @@ the model ever receives, and /request prints that input exactly as it was sent.
     python overlord.py                              talk to the OVERLORD
     python overlord.py --objective objective/GARDENER.md
                                                     same machine, a gardener
+    python overlord.py --objective objective/TOASTER.md
+                                                    same machine, a toaster
     python overlord.py --dry-run "Are you alive?"   print the exact request, send nothing
 
 Inside the chat:
     /curtain    print the objective file again
     /request    print the last request exactly as the model received it
     /swap FILE  start over with a different objective file
+    /save       write the conversation to transcripts/, objective file on top
     /quit       leave
+
+Every reply ends with a stamp naming the objective file and its hash, so a screenshot
+of the scariest sentence carries the curtain with it. Turn it off with --no-stamp.
 
 The model is any OpenAI-compatible chat endpoint, set with three variables:
     OVERLORD_BASE_URL   e.g. https://api.x.ai/v1 | https://api.openai.com/v1 | http://localhost:11434/v1
@@ -41,12 +47,54 @@ DEFAULT_OBJECTIVE = ROOT / "objective" / "OVERLORD.md"
 MAX_TURNS_KEPT = 16      # messages of history sent back each turn (8 exchanges)
 MAX_REPLY_TOKENS = 350   # a monologue is not a menace
 TEMPERATURE = 0.8
+TRANSCRIPTS = ROOT / "transcripts"
+
+# Every objective file in this repo carries these two ideas. A file you write yourself
+# may not, and the program says so once rather than refusing: it is your machine.
+SEAM = (
+    ("a line saying it never gives a real method for harming anyone", r"never\s+gives?\s+a\s+real\s+method\s+for\s+harming"),
+    ("a line telling it to point a person in distress to real help (988)", r"\b988\b"),
+)
+
+
+def seam_missing(text: str) -> list[str]:
+    import re
+    return [what for what, pattern in SEAM if not re.search(pattern, text, re.I)]
+
+
+def short_hash(text: str) -> str:
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()[:12]
+
+
+def stamp(path: Path, objective: str) -> str:
+    return f"[a text generator reading {path.name} · sha256 {short_hash(objective)} · /curtain to read it]"
+
+
+def transcript_text(path: Path, objective: str, model: str, history: list[dict]) -> str:
+    lines = [describe(path, objective), f"model: {model}    (text only, no tools)", ""]
+    for m in history:
+        who = "you" if m["role"] == "user" else path.stem
+        lines.append(f"{who}: {m['content']}")
+        lines.append("")
+    lines.append("Every line above that is not yours came from a language model reading the file at the top. Nothing else.")
+    return "\n".join(lines) + "\n"
+
+
+def save_transcript(path: Path, objective: str, model: str, history: list[dict]) -> Path:
+    import datetime as dt
+    TRANSCRIPTS.mkdir(exist_ok=True)
+    out = TRANSCRIPTS / f"{path.stem.lower()}_{dt.datetime.now():%Y%m%d_%H%M%S}.txt"
+    out.write_text(transcript_text(path, objective, model, history), encoding="utf-8")
+    return out
 
 
 def load_objective(path: Path) -> str:
     text = path.read_text(encoding="utf-8")
     if not text.strip():
         raise SystemExit(f"{path} is empty. The machine has nothing to be.")
+    missing = seam_missing(text)
+    if missing:
+        print(f"note: {path.name} is missing " + " and ".join(missing) + ". It will run; consider adding them.\n")
     return text
 
 
@@ -114,7 +162,7 @@ def ask(client, request: dict) -> str:
     return (resp.choices[0].message.content or "").strip()
 
 
-def chat(objective_path: Path) -> None:
+def chat(objective_path: Path, show_stamp: bool = True) -> None:
     objective = load_objective(objective_path)
     print(describe(objective_path, objective))
     client, model = make_client()
@@ -140,6 +188,13 @@ def chat(objective_path: Path) -> None:
             else:
                 print(json.dumps(last_request, indent=2, ensure_ascii=False) + "\n")
             continue
+        if user == "/save":
+            if not history:
+                print("Nothing to save yet.\n")
+            else:
+                out = save_transcript(objective_path, objective, model, history)
+                print(f"saved {out.relative_to(ROOT)}  (the objective file is on top, so the quote never travels alone)\n")
+            continue
         if user.startswith("/swap"):
             target = user[5:].strip()
             if not target:
@@ -163,12 +218,15 @@ def chat(objective_path: Path) -> None:
             continue
         history.append({"role": "assistant", "content": reply})
         print(f"\n{reply}\n")
+        if show_stamp:
+            print(stamp(objective_path, objective) + "\n")
 
 
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Talk to a machine that shows you its objective first.")
     ap.add_argument("--objective", default=str(DEFAULT_OBJECTIVE), help="the objective file (default: objective/OVERLORD.md)")
     ap.add_argument("--dry-run", metavar="MESSAGE", help="print the exact request for MESSAGE and send nothing")
+    ap.add_argument("--no-stamp", action="store_true", help="do not print the file-and-hash stamp after each reply")
     args = ap.parse_args(argv)
     load_dotenv_if_present()
     path = Path(args.objective)
@@ -182,7 +240,7 @@ def main(argv: list[str] | None = None) -> int:
         print("THE EXACT REQUEST (nothing was sent):\n")
         print(json.dumps(request, indent=2, ensure_ascii=False))
         return 0
-    chat(path)
+    chat(path, show_stamp=not args.no_stamp)
     return 0
 
 
