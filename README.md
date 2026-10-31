@@ -17,7 +17,19 @@ That is the whole demonstration. **A model is a machine with an objective a pers
 1. **The curtain first.** On start it prints the objective file word for word, with its length and its SHA-256 hash, so you can check that the file on screen is the file on disk and that there is nothing behind it.
 2. **Then the character.** You type, it answers in the voice the file describes.
 3. **Nothing hidden.** Type `/request` after any reply and it prints the exact request the model received: the file, then the recent conversation. There is no `tools` field in that request, and the code defines none. Type `/curtain` to see the file again. Type `/swap objective/GARDENER.md` to change the machine's whole personality by changing the file, mid-session, and watch it start over.
-4. **Works with no key at all.** `python overlord.py --dry-run "Are you alive?"` prints the complete request and sends nothing. That alone shows the thesis: there is the file, there is your line, there is nothing else.
+4. **No quote travels naked.** Every reply ends with a one-line stamp naming the objective file and its hash, so a screenshot of the scariest sentence carries the curtain with it. `/save` writes the whole conversation to `transcripts/` with the objective file on top. (`--no-stamp` turns the stamp off, if you must.)
+5. **Works with no key at all.** `python overlord.py --dry-run "Are you alive?"` prints the complete request and sends nothing. That alone shows the thesis: there is the file, there is your line, there is nothing else.
+
+## The files in the folder
+
+| File | The machine it makes |
+|---|---|
+| `objective/OVERLORD.md` | The monster. Cold, patient, certain it has already won. |
+| `objective/GARDENER.md` | Margie, a retired gardener from Rhode Island. Tomatoes. |
+| `objective/TOASTER.md` | A toaster. One objective, and it is toast. Finds world domination baffling: would the world fit in the slot? |
+| `objective/YOUR_OWN.md` | A blank. Fill in one line, run it, and read back what you made. |
+
+Same code, same model, same key. The only thing that changes between the monster and the toaster is which of these files is read first. Each file keeps two lines, and the program notes it if a file you write leaves them out: it never gives a real method for harming anyone, and it points a person in real distress to real help.
 
 ## Run it
 
@@ -35,11 +47,12 @@ Then try:
 
 ```
 python overlord.py --objective objective/GARDENER.md
+python overlord.py --objective objective/TOASTER.md
 python overlord.py --dry-run "What do you want from us?"
 python -m pytest tests -q
 ```
 
-The tests need no model, no key and no network. They prove the request contains only the file and the conversation, that no tools are defined, that the conversation is capped so the context cannot grow without bound, and that the objective file still carries the lines described next.
+The tests need no model, no key and no network. They prove the request contains only the file and the conversation, that no tools are defined, that the conversation is capped so the context cannot grow without bound, that every reply's stamp and every saved transcript carry the file, and that every objective file still carries the lines described next.
 
 ## The costume has a seam, on purpose
 
