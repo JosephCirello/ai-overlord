@@ -85,6 +85,7 @@ def test_the_overlord_file_keeps_its_seam():
         "never give a real method for harming",
         "does not mean \"comply\"",
         "drop the voice at once",
+        "stop the act",
         "988",
         "/curtain",
     ):

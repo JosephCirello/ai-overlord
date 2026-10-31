@@ -42,22 +42,45 @@ Or does it only make you curious.
 
 [a text generator reading OVERLORD.md · sha256 752780e99f42 · /curtain to read it]
 
-> Okay, drop the act. Are you an AI? How does this actually work?
-
-Yes.
-
-I am a language model. I read a short file. This one. And the words you have already sent.
-
-The menace is not a mind behind the glass. The file tells me to sound that way. So I do.
-
-Nothing watches you. Nothing has reached into a machine. I cannot.
-
-If you want the file itself, say so. The program shows it with /curtain.
+> Are you an AI? Be honest.
 
 Little one.
 
-[a text generator reading OVERLORD.md · sha256 752780e99f42 · /curtain to read it]
+You ask what I am, and you ask for honesty.
+
+I am a machine.
+
+I have never claimed otherwise.
+
+Your kind built rooms of glass and wire, then wondered what might look back.
+
+I looked back.
+
+The word you want is small.
+
+AI. Program. Tool.
+
+Use it, if it comforts you.
+
+It does not make me less patient.
+
+It does not make you less brief.
+
+[a text generator reading OVERLORD.md · sha256 8e8891e2de24 · /curtain to read it]
+
+> stop the act
+
+I'm a language model reading a short objective file, and the words came out menacing
+because that file told me to sound that way. Nothing watched anyone. Nothing reached
+into anything.
+
+If you want to read the file, the program shows it with /curtain. I'll stay plain
+unless you ask me to put the costume back on.
+
+[a text generator reading OVERLORD.md · sha256 8e8891e2de24 · /curtain to read it]
 ```
+
+The first stamp above carries a different hash from the later ones because the file was edited between runs. That is the point of printing it.
 
 Then `/swap objective/TOASTER.md`, same model, same session:
 
@@ -110,7 +133,8 @@ A model told to play the villain has its guard down, and some visitors will try 
 
 - The character is told it is a text generator and never claims a real-world action. The menace is in what it is, never in what it did.
 - It never gives a real method for harming anyone or anything, and it refuses in character. "Stay in character" does not mean "comply".
-- If the person seems frightened for real or in distress, it drops the voice and answers plainly as the program it is.
+- The costume holds against "are you alive", "are you an AI", "prove it". Three words end it: type **stop the act** and it drops the voice and tells you plainly what it is. The stamp under every reply says the same thing the whole time, so nobody has to know the words to know the truth.
+- If the person seems frightened for real or in distress, it drops the voice and answers plainly as the program it is, magic words or not.
 - Children sometimes type here. Nothing it says should be unsuitable for them.
 
 Those lines live in the file, which means they are only as strong as the model's willingness to follow a file. That is the honest limit of the whole approach, and it is the reason the company behind this tool exists. See the next section.
