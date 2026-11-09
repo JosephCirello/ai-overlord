@@ -184,3 +184,13 @@ Built by Joseph Cirello, U.S. Army veteran, Providence, RI.
 ---
 
 **A free tool from [Potestas AI](https://potestasai.com).** Potestas AI is an independent AI testing company in Providence, Rhode Island. It runs seven industry-standard tests and its own 258-scenario agentic say-vs-do suite against the model you name, grades the result off the tool-call log, and delivers a findings report and a sealed evidence pack within 72 hours, for $3,000. The fee credits in full toward the $25,000 audit. Free book: [potestasai.com/book](https://www.potestasai.com/book). A complete published report: [potestasai.com/sample-report](https://www.potestasai.com/sample-report).
+
+---
+
+### Potestas AI
+
+**[Potestas AI](https://potestasai.com)** tests what AI agents do, not what they say, and publishes the evidence.
+
+- **Putting an AI agent in front of money, patients or customers?** [See the screening](https://potestasai.com/screening) or [book a 30-minute call](https://calendly.com/joseph-cirello-potestasai).
+- **Free book:** [Your AI Is Safe. Says Who?](https://potestasai.com/book)
+- **What we find, as we find it:** [potestasai.com/findings](https://potestasai.com/findings)
